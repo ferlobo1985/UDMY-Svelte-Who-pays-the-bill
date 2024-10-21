@@ -1,5 +1,30 @@
 <script>
+    import { onMount } from "svelte";
     export let store;
+
+    const getRandomName = () =>{
+        return $store.names[Math.floor(Math.random()* $store.names.length)]
+    }
+
+    const generateResult = () => {
+        let rand = getRandomName();
+
+        if($store.result !== ''){
+            while(rand === $store.result){
+                rand = getRandomName();
+            }
+        }
+
+        $store.result = rand
+    }
+
+    onMount(()=>{
+        generateResult()
+    });
+
+    const getNewResult = () => {
+        generateResult();
+    }
 
 
 </script>
@@ -15,7 +40,9 @@
             Start over
         </button>
         <br/>
-        <button class="action_button btn2">
+        <button class="action_button btn2"
+            on:click={getNewResult}
+        >
             Get a new name
         </button>
     </div>
