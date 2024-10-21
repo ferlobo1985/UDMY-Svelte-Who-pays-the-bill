@@ -30,6 +30,18 @@
         return true;
     }
 
+    const removeName = (index) => {
+        store.update((prev)=>{
+            let names = [...$store.names];
+            names.splice(index,1)
+
+            return{
+                ...prev,
+                names
+            }
+        })
+    }
+
 
 </script>
 
@@ -52,7 +64,8 @@
      
     <div class="list_of_names">
         {#each $store.names as name,index(name) }
-            <div>
+            <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+            <div on:click={()=> removeName(index)}>
                 {name}
             </div>
         {/each}
