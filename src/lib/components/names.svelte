@@ -42,6 +42,15 @@
         })
     }
 
+    const showResults = () =>{ 
+        $store.error = '';
+        if($store.names.length >= 2){
+            $store.state = false;
+        } else {
+            $store.error = 'You need at least 2 names';
+            $store.showError = true;
+        }
+    }
 
 </script>
 
@@ -71,8 +80,10 @@
         {/each}
     </div>
 
+     <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
     <div
         class="action_button"
+        on:click={showResults}
     >
         Who's the Looser ?
     </div>
