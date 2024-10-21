@@ -1,4 +1,34 @@
 <script>
+    export let store;
+
+
+    const addNamesToList = () => {
+        const userName = $store.inputName;
+        if(validate(userName)){
+            /// add to the names array
+            $store.names.push(userName);
+            $store.inputName = '';
+            $store.showError = false;
+        } else {
+            // show error
+            $store.showError = true;
+        }
+    }
+
+    const validate = (value) => {
+        $store.error = '';
+        if(value === ''){
+            $store.error = 'Sorry, no empty name';
+            return false;
+        }
+
+        if($store.names.includes(value)){
+            $store.error = 'Sorry, names must be unique';
+            return false;
+        }
+
+        return true;
+    }
 
 
 </script>
@@ -10,16 +40,22 @@
     </div>
 
     <div class="input_container">
-        <input type="text"/>
-        <button>Add</button>
+        <input type="text" bind:value={$store.inputName}/>
+        <button on:click={addNamesToList}>Add</button>
     </div>
 
-    <!-- ERROR -->
+    {#if $store.showError}
+        <div class="error_label">
+            {$store.error}
+        </div>
+    {/if}
      
     <div class="list_of_names">
-        <div>
-            Mike
-        </div>
+        {#each $store.names as name,index(name) }
+            <div>
+                {name}
+            </div>
+        {/each}
     </div>
 
     <div

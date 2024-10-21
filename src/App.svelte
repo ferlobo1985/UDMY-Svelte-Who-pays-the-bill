@@ -9,7 +9,7 @@
 </script>
 
 {#if $store.state}
-  <Names/>
+  <Names {store}/>
 {:else}
-  <Result/>
+  <Result {store}/>
 {/if}
