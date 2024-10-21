@@ -26,6 +26,16 @@
         generateResult();
     }
 
+    const resetApp = () => {
+        store.set({
+            state:true,
+            inputName:'',
+            names:[],
+            error:'',
+            showError:false,
+            result:''
+        })
+    }
 
 </script>
 
@@ -36,7 +46,9 @@
             {$store.result}
         </div>
 
-        <button class="action_button">
+        <button class="action_button"
+            on:click={resetApp}
+        >
             Start over
         </button>
         <br/>
